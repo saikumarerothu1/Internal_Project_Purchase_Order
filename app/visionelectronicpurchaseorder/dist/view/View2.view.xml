@@ -1,0 +1,66 @@
+<mvc:View controllerName="visionelectronicpurchaseorder.controller.View2"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    displayBlock="true">
+
+    <Page id="v2_purchaseOrderPage" title="Purchase Orders"
+          showNavButton="true" navButtonPress=".onNavBack"
+          enableScrolling="false">
+        <content>
+
+            <!-- TOOLBAR -->
+            <VBox id="v2_vboxToolbar" class="sapUiSmallMarginBottom sapUiSmallMarginBeginEnd">
+                <OverflowToolbar id="v2_toolbarActions" style="Clear">
+                    <Title id="v2_titlePOList" text="Purchase Orders" level="H2"/>
+                    <ToolbarSpacer id="v2_toolbarSpacer"/>
+                    <Button
+                        id="v2_btnSort"
+                        icon="sap-icon://sort"
+                        press=".onSortPress"
+                        tooltip="Sort"/>
+                </OverflowToolbar>
+            </VBox>
+
+            <ScrollContainer
+                id="v2_scrollContainerTable"
+                horizontal="true"
+                vertical="true"
+                width="100%"
+                height="calc(100vh - 130px)">
+
+                <Table
+                    id="v2_purchaseOrderTable"
+                    growing="true"
+                    growingScrollToLoad="true"
+                    noDataText="No Purchase Orders found"
+                    sticky="ColumnHeaders"
+                    fixedLayout="true"
+                    width="2200px"
+                    showSeparators="All"
+                    class="alv-grid sapUiSizeCondensed">
+                    <columns>
+                        <Column id="v2_colMaterial"        width="120px"><Text id="v2_txtHeaderMaterial"        text="Material"       wrapping="false"/></Column>
+                        <Column id="v2_colVendor"          width="100px"><Text id="v2_txtHeaderVendor"          text="Vendor"         wrapping="false"/></Column>
+                        <Column id="v2_colPRNumber"        width="140px"><Text id="v2_txtHeaderPRNumber"        text="PR Number"      wrapping="false"/></Column>
+                        <Column id="v2_colPRItem"          width="90px" ><Text id="v2_txtHeaderPRItem"          text="PR Item"        wrapping="false"/></Column>
+                        <Column id="v2_colPONumber"        width="140px"><Text id="v2_txtHeaderPONumber"        text="PO Number"      wrapping="false"/></Column>
+                        <Column id="v2_colPOItem"          width="90px" ><Text id="v2_txtHeaderPOItem"          text="PO Item"        wrapping="false"/></Column>
+                        <Column id="v2_colOrderedQty"      width="120px" hAlign="End"><Text id="v2_txtHeaderOrderedQty"      text="Ordered Qty"    wrapping="false"/></Column>
+                        <Column id="v2_colPOOrderValue"    width="140px" hAlign="End"><Text id="v2_txtHeaderPOOrderValue"    text="PO Order Value" wrapping="false"/></Column>
+                        <Column id="v2_colGRNo"            width="130px"><Text id="v2_txtHeaderGRNo"            text="GR No"          wrapping="false"/></Column>
+                        <Column id="v2_colGRLineItem"      width="120px" hAlign="End"><Text id="v2_txtHeaderGRLineItem"      text="GR Line Item"   wrapping="false"/></Column>
+                        <Column id="v2_colGRDate"          width="120px"><Text id="v2_txtHeaderGRDate"          text="GR Date"        wrapping="false"/></Column>
+                        <Column id="v2_colGRQuantity"      width="100px" hAlign="End"><Text id="v2_txtHeaderGRQuantity"      text="GR Qty"         wrapping="false"/></Column>
+                        <Column id="v2_colInvoiceNo"       width="140px"><Text id="v2_txtHeaderInvoiceNo"       text="Invoice No"     wrapping="false"/></Column>
+                        <Column id="v2_colInvoiceItem"     width="110px" hAlign="End"><Text id="v2_txtHeaderInvoiceItem"     text="Invoice Item"   wrapping="false"/></Column>
+                        <Column id="v2_colInvoiceDate"     width="120px"><Text id="v2_txtHeaderInvoiceDate"     text="Invoice Date"   wrapping="false"/></Column>
+                        <Column id="v2_colInvoiceQuantity" width="120px" hAlign="End"><Text id="v2_txtHeaderInvoiceQuantity" text="Invoice Qty"    wrapping="false"/></Column>
+                        <Column id="v2_colInvoiceAmt"      width="120px" hAlign="End"><Text id="v2_txtHeaderInvoiceAmt"      text="Invoice Amt"    wrapping="false"/></Column>
+                    </columns>
+                </Table>
+
+            </ScrollContainer>
+
+        </content>
+    </Page>
+</mvc:View>

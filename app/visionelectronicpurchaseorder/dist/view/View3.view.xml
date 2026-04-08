@@ -1,0 +1,217 @@
+<mvc:View controllerName="visionelectronicpurchaseorder.controller.View3"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    displayBlock="true">
+
+    <Page id="v3_purchaseOrderDetailPage" title="Purchase Order Detail"
+          showNavButton="true" navButtonPress=".onNavBack">
+        <headerContent>
+            <Button
+                id="v3_btnPrintPO"
+                text="Print PO"
+                icon="sap-icon://print"
+                press=".onPrintPO"/>
+        </headerContent>
+        <content>
+            <VBox id="v3_vboxPOContainer" class="sapUiMediumMargin">
+
+                <!-- LOGO + COMPANY NAME -->
+                <HBox id="v3_hboxLogoAndCompany" justifyContent="SpaceBetween"
+                      class="sapUiSmallMarginBottom">
+                    <!-- ✅ src intentionally empty — set programmatically in onInit() -->
+                    <Image id="v3_imgCompanyLogo" width="120px"/>
+                    <VBox id="v3_vboxCompanyName" justifyContent="Center">
+                        <Title id="v3_txtCompanyName" text="Vision Electronics Pvt Ltd" level="H2"/>
+                    </VBox>
+                </HBox>
+
+                <!-- PURCHASE ORDER TITLE -->
+                <Title id="v3_txtPOTitle" text="PURCHASE ORDER" level="H2"
+                       textAlign="Center" class="sapUiMediumMarginBottom sapUiSmallMarginTop"/>
+
+                <!-- PO HEADER FIELDS -->
+                <l:Grid id="v3_gridPOHeaderFields" defaultSpan="L6 M6 S12"
+                        hSpacing="2" vSpacing="1" class="sapUiSmallMarginBottom">
+
+                    <!-- LEFT COLUMN -->
+                    <VBox id="v3_vboxPOLeftFields">
+                        <HBox id="v3_hboxPONumber" class="sapUiTinyMarginBottom">
+                            <Label id="v3_lblPONumber" text="PO Number:" width="220px" design="Bold"/>
+                            <Text id="v3_valPONumber" text="{PONumber}"/>
+                        </HBox>
+                        <HBox id="v3_hboxSupplierName" class="sapUiTinyMarginBottom">
+                            <Label id="v3_lblSupplierName" text="Supplier Name:" width="220px" design="Bold"/>
+                            <Text id="v3_valSupplierName" text="{SupplierName}"/>
+                        </HBox>
+                        <HBox id="v3_hboxSupplierAddress" class="sapUiTinyMarginBottom">
+                            <Label id="v3_lblSupplierAddress" text="Supplier Address:" width="220px" design="Bold"/>
+                            <Text id="v3_valSupplierAddress" text="{SupplierStreet}, {SupplierCity}, {SupplierCountry}"/>
+                        </HBox>
+                        <HBox id="v3_hboxDeliveryAddress" class="sapUiTinyMarginBottom">
+                            <Label id="v3_lblDeliveryAddress" text="Delivery Address (Plant):" width="220px" design="Bold"/>
+                            <Text id="v3_valDeliveryAddress" text="{DeliveryStreet}, {DeliveryCity}, {DeliveryCountry}"/>
+                        </HBox>
+                        <HBox id="v3_hboxPurchasingOrg" class="sapUiTinyMarginBottom">
+                            <Label id="v3_lblPurchasingOrg" text="Purchasing Org:" width="220px" design="Bold"/>
+                            <Text id="v3_valPurchasingOrg" text="{PurchaseOrg}"/>
+                        </HBox>
+                    </VBox>
+
+                    <!-- RIGHT COLUMN -->
+                    <VBox id="v3_vboxPORightFields">
+                        <HBox id="v3_hboxPODate" class="sapUiTinyMarginBottom">
+                            <Label id="v3_lblPODate" text="PO Date:" width="220px" design="Bold"/>
+                            <Text id="v3_valPODate" text="{PODate}"/>
+                        </HBox>
+                        <HBox id="v3_hboxPurchaseGroup" class="sapUiTinyMarginBottom">
+                            <Label id="v3_lblPurchaseGroup" text="Purchase Group:" width="220px" design="Bold"/>
+                            <Text id="v3_valPurchaseGroup" text="{PurchaseGrp}"/>
+                        </HBox>
+                        <HBox id="v3_hboxPaymentTerms" class="sapUiTinyMarginBottom">
+                            <Label id="v3_lblPaymentTerms" text="Payment Terms:" width="220px" design="Bold"/>
+                            <Text id="v3_valPaymentTerms" text="{PaymentTerms}"/>
+                        </HBox>
+                    </VBox>
+
+                </l:Grid>
+
+                <!-- ITEMS TABLE -->
+                <Table id="v3_tblPOItems" inset="false" class="sapUiSmallMarginTop"
+                       items="{/Z_PURCHASE_ORDER}">
+                    <columns>
+                        <Column id="v3_colItemNo" width="10%">
+                            <Text id="v3_lblColItemNo" text="Item No"/>
+                        </Column>
+                        <Column id="v3_colMaterialName" width="20%">
+                            <Text id="v3_lblColMaterialName" text="Material"/>
+                        </Column>
+                        <Column id="v3_colQuantity" width="12%" hAlign="Center">
+                            <Text id="v3_lblColQuantity" text="Quantity"/>
+                        </Column>
+                        <Column id="v3_colUnitPrice" width="12%" hAlign="End">
+                            <Text id="v3_lblColUnitPrice" text="Unit Price"/>
+                        </Column>
+                        <Column id="v3_colDeliveryDate" width="18%">
+                            <Text id="v3_lblColDeliveryDate" text="Delivery Date"/>
+                        </Column>
+                        <Column id="v3_colAmount" width="13%" hAlign="End">
+                            <Text id="v3_lblColAmount" text="Amount"/>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem id="v3_rowPOItem">
+                            <cells>
+                                <Text id="v3_txtItemPOItem"         text="{POItem}"/>
+                                <Text id="v3_txtItemMaterial"       text="{Material}"/>
+                                <Text id="v3_txtItemOrderedQty"     text="{OrderedQuantity}"/>
+                                <Text id="v3_txtItemUnitPrice"
+                                      text="{= %{POOrderValue} > 0 &amp;&amp; %{OrderedQuantity} > 0
+                                             ? (Math.round(%{POOrderValue} / %{OrderedQuantity} * 100) / 100).toFixed(2)
+                                             : '0.00' }"/>
+                                <Text id="v3_txtItemDeliveryDate"   text="{DeliveryDate}"/>
+                                <Text id="v3_txtItemAmount"
+                                      text="{= %{POOrderValue} ? parseFloat(%{POOrderValue}).toFixed(2) : '0.00' }"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+
+                <!-- AMOUNT SUMMARY -->
+                <HBox id="v3_hboxSummaryWrapper" justifyContent="End" class="sapUiSmallMarginTop">
+                    <VBox id="v3_vboxSummary" width="300px">
+
+                        <!-- Amount -->
+                        <HBox id="v3_hboxSummaryAmount" justifyContent="SpaceBetween"
+                              class="sapUiTinyMarginBottom">
+                            <Label id="v3_lblSummaryAmount" text="Amount:"       design="Bold" width="150px"/>
+                            <Text  id="v3_valSummaryAmount" text=""/>
+                        </HBox>
+
+                        <!-- V1: IGST row -->
+                        <HBox id="v3_hboxSummaryIGST" justifyContent="SpaceBetween"
+                              class="sapUiTinyMarginBottom" visible="false">
+                            <Label id="v3_lblSummaryIGST" text="IGST (18%):" design="Bold" width="150px"/>
+                            <Text  id="v3_valSummaryIGST" text=""/>
+                        </HBox>
+
+                        <!-- V5: CGST row -->
+                        <HBox id="v3_hboxSummaryCGST" justifyContent="SpaceBetween"
+                              class="sapUiTinyMarginBottom" visible="false">
+                            <Label id="v3_lblSummaryCGST" text="CGST (9%):" design="Bold" width="150px"/>
+                            <Text  id="v3_valSummaryCGST" text=""/>
+                        </HBox>
+
+                        <!-- V5: SGST row -->
+                        <HBox id="v3_hboxSummarySGST" justifyContent="SpaceBetween"
+                              class="sapUiTinyMarginBottom" visible="false">
+                            <Label id="v3_lblSummarySGST" text="SGST (9%):" design="Bold" width="150px"/>
+                            <Text  id="v3_valSummarySGST" text=""/>
+                        </HBox>
+
+                        <!-- Default: Tax% fallback row -->
+                        <HBox id="v3_hboxSummaryTax" justifyContent="SpaceBetween"
+                              class="sapUiTinyMarginBottom" visible="true">
+                            <Label id="v3_lblSummaryTax" text="Tax%:" design="Bold" width="150px"/>
+                            <Text  id="v3_valSummaryTax" text=""/>
+                        </HBox>
+
+                        <!-- Tax Amount -->
+                        <HBox id="v3_hboxSummaryTaxAmt" justifyContent="SpaceBetween"
+                              class="sapUiTinyMarginBottom">
+                            <Label id="v3_lblSummaryTaxAmt" text="Tax Amount:"   design="Bold" width="150px"/>
+                            <Text  id="v3_valSummaryTaxAmt" text=""/>
+                        </HBox>
+
+                        <!-- Total Amount -->
+                        <HBox id="v3_hboxSummaryTotal" justifyContent="SpaceBetween"
+                              class="sapUiTinyMarginBottom">
+                            <Label id="v3_lblSummaryTotal"  text="Total Amount:" design="Bold" width="150px"/>
+                            <Text  id="v3_valSummaryTotal"  text=""/>
+                        </HBox>
+
+                    </VBox>
+                </HBox>
+
+                <!-- TERMS AND CONDITIONS -->
+                <Panel id="v3_panelTerms" headerText="TERMS AND CONDITIONS"
+                       class="sapUiLargeMarginTop" expandable="false">
+                    <content>
+                        <VBox id="v3_vboxTerms" class="sapUiSmallMargin">
+                            <Title id="v3_titleDefinitions" text="DEFINITIONS:" level="H5"
+                                   class="sapUiSmallMarginTop sapUiSmallMarginBottom"/>
+                            <Text id="v3_txtDef1" text="Buyer means the company as specified in the Purchase Order." wrapping="true" class="sapUiTinyMarginBottom"/>
+                            <Text id="v3_txtDef2" text="Confidential Information means all non-public information shared between the parties." wrapping="true" class="sapUiTinyMarginBottom"/>
+                            <Text id="v3_txtDef3" text="Delivery Date means the date when the goods are delivered to the Buyer." wrapping="true" class="sapUiTinyMarginBottom"/>
+                            <Text id="v3_txtDef4" text="Warranty Period means 12 months from the later of delivery or acceptance." wrapping="true" class="sapUiTinyMarginBottom"/>
+                            <Title id="v3_titleAppTerms" text="APPLICATION OF TERMS:" level="H5"
+                                   class="sapUiSmallMarginTop sapUiSmallMarginBottom"/>
+                            <Text id="v3_txtAppTerms1" text="Supplier agrees to deliver goods and/or perform services as described in the Purchase Order strictly according to these terms and conditions." wrapping="true" class="sapUiTinyMarginBottom"/>
+                            <Text id="v3_txtAppTerms2" text="Any different or additional terms in the Supplier's quotation, acknowledgement, or other documents are rejected unless expressly agreed in writing by the Buyer." wrapping="true" class="sapUiTinyMarginBottom"/>
+                            <Text id="v3_txtAppTerms3" text="The Purchase Order is non-exclusive. The Buyer may procure similar goods/services from other suppliers." wrapping="true" class="sapUiTinyMarginBottom"/>
+                            <Title id="v3_titleCancellation" text="CANCELLATION OR CHANGE OF PURCHASE ORDERS:" level="H5"
+                                   class="sapUiSmallMarginTop sapUiSmallMarginBottom"/>
+                            <Text id="v3_txtCancellation" text="The Buyer may cancel or modify any Purchase Order at any time before shipment without any charges or penalties. Any changes will be communicated in writing. The Supplier shall accept equitable adjustments to price or delivery schedule where appropriate." wrapping="true" class="sapUiTinyMarginBottom"/>
+                            <Title id="v3_titleChanges" text="CHANGES:" level="H5"
+                                   class="sapUiSmallMarginTop sapUiSmallMarginBottom"/>
+                            <Text id="v3_txtChanges" text="Buyer may request changes to specification, quantity, or delivery schedule. Adjustments in price or timeline must be agreed in writing through a Purchase Order amendment." wrapping="true" class="sapUiTinyMarginBottom"/>
+                            <Title id="v3_titleCompliance" text="COMPLIANCE:" level="H5"
+                                   class="sapUiSmallMarginTop sapUiSmallMarginBottom"/>
+                            <Text id="v3_txtCompliance" text="Supplier shall comply with all applicable laws, safety norms, environmental regulations, and ethical standards. Goods and/or services must be genuine and free from third-party claims." wrapping="true" class="sapUiTinyMarginBottom"/>
+                            <Title id="v3_titleConfidentiality" text="CONFIDENTIALITY:" level="H5"
+                                   class="sapUiSmallMarginTop sapUiSmallMarginBottom"/>
+                            <Text id="v3_txtConfidentiality" text="All documents, drawings, data, and information shared by the Buyer remain confidential and cannot be disclosed or used for any purpose other than fulfilling the Purchase Order." wrapping="true" class="sapUiTinyMarginBottom"/>
+                            <Title id="v3_titleNotices" text="NOTICES:" level="H5"
+                                   class="sapUiSmallMarginTop sapUiSmallMarginBottom"/>
+                            <Text id="v3_txtNotices" text="All notices shall be sent to the addresses or emails specified in the Purchase Order and considered delivered as per the communication rules stated therein." wrapping="true" class="sapUiTinyMarginBottom"/>
+                            <Title id="v3_titleEntireAgreement" text="ENTIRE AGREEMENT:" level="H5"
+                                   class="sapUiSmallMarginTop sapUiSmallMarginBottom"/>
+                            <Text id="v3_txtEntireAgreement" text="These terms, together with the Purchase Order and attachments, constitute the entire agreement between the parties." wrapping="true" class="sapUiTinyMarginBottom"/>
+                        </VBox>
+                    </content>
+                </Panel>
+
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

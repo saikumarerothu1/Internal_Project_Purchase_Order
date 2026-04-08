@@ -1,0 +1,40 @@
+{
+  "xsappname": "purchaseorder",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.PurchaseorderAdmin",
+      "description": "PurchaseorderAdmin"
+    },
+    {
+      "name": "$XSAPPNAME.Purchaseorderviewer",
+      "description": "Purchaseorderviewer"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "PurchaseorderAdmin",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.PurchaseorderAdmin"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "Purchaseorderviewer",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.Purchaseorderviewer"
+      ],
+      "attribute-references": []
+    }
+  ],
+  "oauth2-configuration": {
+    "token-validity": 9000,
+    "redirect-uris": [
+      "https://*.cfapps.us10-001.hana.ondemand.com/login/callback"
+    ]
+  },
+  "xsenableasyncservice": "true"
+}

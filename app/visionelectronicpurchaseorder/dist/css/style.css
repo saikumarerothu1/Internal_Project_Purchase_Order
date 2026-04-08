@@ -1,0 +1,138 @@
+/* =========================================
+   ALV Grid Style — Dense, Bordered, Compact
+   ========================================= */
+
+/* Outer border */
+#v2_purchaseOrderTable {
+    border: 1px solid #b0b0b0;
+}
+
+/* Force table element to have collapsed borders */
+#v2_purchaseOrderTable table {
+    border-collapse: collapse !important;
+    border: 1px solid #b0b0b0 !important;
+}
+
+/* Every td and th — full grid lines on all 4 sides */
+#v2_purchaseOrderTable td,
+#v2_purchaseOrderTable th {
+    border: 1px solid #c0c0c0 !important;
+    padding: 3px 6px !important;
+}
+
+/* Header row — SAP blue background */
+#v2_purchaseOrderTable .sapMListTblHeader {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #1873B4 !important;
+    height: 32px !important;
+}
+
+/* th — blue border and white text */
+#v2_purchaseOrderTable th {
+    border: 1px solid #4a90c4 !important;
+    background-color: #1873B4 !important;
+    color: #ffffff !important;
+    font-weight: bold !important;
+    font-size: 12px !important;
+}
+
+/* Header cell text — white, bold */
+#v2_purchaseOrderTable .sapMListTblHeader .sapMText {
+    color: #ffffff !important;
+    font-weight: bold !important;
+    font-size: 12px !important;
+    white-space: nowrap !important;
+}
+
+/* Column header cells — vertical lines */
+#v2_purchaseOrderTable .sapMListTblHeaderCell {
+    border-right: 1px solid #4a90c4 !important;
+    border-left: 1px solid #4a90c4 !important;
+    border-bottom: 2px solid #0854a0 !important;
+    padding: 4px 6px !important;
+    height: 32px !important;
+}
+
+/* Data rows — compact height */
+#v2_purchaseOrderTable .sapMLIB {
+    height: 28px !important;
+    min-height: 28px !important;
+    border-bottom: 1px solid #c0c0c0 !important;
+    border-top: 1px solid #c0c0c0 !important;
+}
+
+/* Data cells — vertical + horizontal lines */
+#v2_purchaseOrderTable .sapMListTblCell {
+    padding: 3px 6px !important;
+    border-right: 1px solid #c0c0c0 !important;
+    border-left: 1px solid #c0c0c0 !important;
+    border-top: 1px solid #c0c0c0 !important;
+    border-bottom: 1px solid #c0c0c0 !important;
+    height: 28px !important;
+    vertical-align: middle !important;
+}
+
+/* Cell text — compact, no wrap */
+#v2_purchaseOrderTable .sapMText {
+    font-size: 12px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    line-height: 20px !important;
+}
+
+/* Zebra stripes */
+#v2_purchaseOrderTable .sapMLIB:nth-child(even) {
+    background-color: #f0f5ff !important;
+}
+
+#v2_purchaseOrderTable .sapMLIB:nth-child(odd) {
+    background-color: #ffffff !important;
+}
+
+/* Row hover */
+#v2_purchaseOrderTable .sapMLIB:hover {
+    background-color: #d4e8f7 !important;
+    cursor: pointer;
+}
+
+/* Row selected */
+#v2_purchaseOrderTable .sapMLIBSelected {
+    background-color: #bbdefb !important;
+}
+
+/* ScrollContainer — fixed height fills remaining screen */
+#v2_scrollContainerTable {
+    height: calc(100vh - 130px) !important;
+}
+
+#v2_scrollContainerTable > .sapMScrollContScroll {
+    height: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: auto !important;
+}
+
+/* Sticky header inside ScrollContainer scroll context */
+#v2_scrollContainerTable .sapMListTblHeader th {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 99 !important;
+    background-color: #1873B4 !important;
+}
+
+/* CRITICAL — this forces vertical lines to show */
+#v2_purchaseOrderTable .sapMListTbl {
+    border-collapse: collapse !important;
+}
+
+#v2_purchaseOrderTable .sapMListTbl td {
+    border-right: 1px solid #c0c0c0 !important;
+    border-left: 1px solid #c0c0c0 !important;
+}
+
+#v2_purchaseOrderTable .sapMListTbl th {
+    border-right: 1px solid #4a90c4 !important;
+    border-left: 1px solid #4a90c4 !important;
+}

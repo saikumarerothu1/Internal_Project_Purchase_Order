@@ -1,0 +1,151 @@
+{
+  "_version": "1.83.0",
+  "sap.app": {
+    "id": "visionelectronicpurchaseorder",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.22.0",
+      "toolsId": "42bd7403-eaf3-4ad6-9ba8-d0f8c76bea00"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/z-purchase-order-service-main/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    },
+  "crossNavigation": {
+      "inbounds": {
+        "intent1": {
+          "semanticObject": "PurchaseOrder",
+          "action": "manage",
+          "title": "Vision Electronics Pvt Limited - Purchase Order",
+          "icon": "sap-icon://purchase-order",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }},
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.146.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "visionelectronicpurchaseorder.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": false,
+          "earlyRequests": true
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "transition": "slide",
+        "type": "View",
+        "viewType": "XML",
+        "path": "visionelectronicpurchaseorder.view",
+        "async": true,
+        "viewPath": "visionelectronicpurchaseorder.view"
+      },
+       "routes": [
+        {
+          "name": "RouteView1",
+          "pattern": ":?query:",
+          "target": ["TargetView1"]
+        },
+        {
+          "name": "RouteView2",
+          "pattern": "POList/{plant}/{porg}/{pgrp}/{material}/{vendor}/{poNumber}",
+          "target": ["TargetView2"]
+        },
+        {
+          "name": "RouteView3",
+          "pattern": "PODetail/{poNumber}/{poItem}",
+          "target": ["TargetView3"]
+        }
+      ],
+      "targets": {
+        "TargetView1": {
+          "id": "View1",
+          "name": "View1"
+        },
+        "TargetView2": {
+          "id": "View2",
+          "name": "View2"
+        },
+        "TargetView3": {
+          "id": "View3",
+          "name": "View3"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "visionelectronicpurchaseorder.view.App",
+      "type": "XML",
+      "id": "App",
+      "async": true
+    }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "visionpurchaseorder"
+  }
+}

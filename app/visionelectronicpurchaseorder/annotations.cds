@@ -1,0 +1,1 @@
+using Z_PURCHASE_ORDER_SERVICE_MAIN as service from '../../srv/Z_PURCHASE_ORDER_SERVICE';

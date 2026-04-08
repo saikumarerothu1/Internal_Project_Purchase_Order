@@ -1,0 +1,109 @@
+<mvc:View controllerName="visionelectronicpurchaseorder.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    displayBlock="true">
+
+    <Page id="v1_selectionScreenPage" title="Purchase Order Selection">
+        <content>
+            <VBox id="v1_vboxSelectionScreen" class="sapUiMediumMargin">
+
+                <Panel id="v1_panelSelection" headerText="Selection Screen" expandable="false">
+                    <content>
+                        <f:SimpleForm
+                            id="v1_formSelection"
+                            editable="true"
+                            layout="ResponsiveGridLayout"
+                            labelSpanXL="4"
+                            labelSpanL="4"
+                            labelSpanM="4"
+                            labelSpanS="12"
+                            adjustLabelSpan="false"
+                            emptySpanXL="4"
+                            emptySpanL="4"
+                            emptySpanM="4"
+                            emptySpanS="0"
+                            columnsXL="1"
+                            columnsL="1"
+                            columnsM="1"
+                            singleContainerFullSize="false"
+                            class="sapUiSmallMarginTop sapUiSmallMarginBottom">
+
+                            <f:content>
+
+                                <!-- PLANT (single) -->
+                                <Label id="v1_lblPlant" text="Plant" labelFor="v1_inputPlant"/>
+                                <Input
+                                    id="v1_inputPlant"
+                                    width="220px"
+                                    placeholder="Plant"
+                                    value="{filterModel>/plant}"/>
+
+                                <!-- PURCHASING ORG (single) -->
+                                <Label id="v1_lblPOrg" text="Purchasing Org" labelFor="v1_inputPOrg"/>
+                                <Input
+                                    id="v1_inputPOrg"
+                                    width="220px"
+                                    placeholder="Purchasing Org"
+                                    value="{filterModel>/porg}"/>
+
+                                <!-- PURCHASING GROUP (single) -->
+                                <Label id="v1_lblPGrp" text="Purchasing Group" labelFor="v1_inputPGrp"/>
+                                <Input
+                                    id="v1_inputPGrp"
+                                    width="220px"
+                                    placeholder="Purchasing Group"
+                                    value="{filterModel>/pgrp}"/>
+
+                                <!-- MATERIAL (single) -->
+                                <Label id="v1_lblMaterial" text="Material" labelFor="v1_inputMaterial"/>
+                                <Input
+                                    id="v1_inputMaterial"
+                                    width="220px"
+                                    placeholder="Material"
+                                    value="{filterModel>/material}"/>
+
+                                <!-- VENDOR (single) -->
+                                <Label id="v1_lblVendor" text="Vendor" labelFor="v1_inputVendor"/>
+                                <Input
+                                    id="v1_inputVendor"
+                                    width="220px"
+                                    placeholder="Vendor"
+                                    value="{filterModel>/vendor}"/>
+
+                                <!-- PO NUMBER (single) -->
+                                <Label id="v1_lblPONumber" text="Purchase Order  Number" labelFor="v1_inputPONumber"/>
+                                <Input
+                                    id="v1_inputPONumber"
+                                    width="220px"
+                                    placeholder="Purchase Order Number"
+                                    value="{filterModel>/poNumber}"/>
+
+                            </f:content>
+                        </f:SimpleForm>
+                    </content>
+                </Panel>
+
+            </VBox>
+        </content>
+
+        <!-- FOOTER -->
+        <footer>
+            <OverflowToolbar id="v1_footerToolbar">
+                <ToolbarSpacer id="v1_footerSpacer"/>
+                <Button
+                    id="v1_btnReset"
+                    text="Reset"
+                    icon="sap-icon://clear-filter"
+                    press=".onReset"/>
+                <Button
+                    id="v1_btnExecute"
+                    text="Execute"
+                    icon="sap-icon://play"
+                    type="Emphasized"
+                    press=".onExecute"/>
+            </OverflowToolbar>
+        </footer>
+
+    </Page>
+</mvc:View>
