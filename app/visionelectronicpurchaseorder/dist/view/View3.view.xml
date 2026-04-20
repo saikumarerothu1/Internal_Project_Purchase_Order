@@ -19,7 +19,6 @@
                 <!-- LOGO + COMPANY NAME -->
                 <HBox id="v3_hboxLogoAndCompany" justifyContent="SpaceBetween"
                       class="sapUiSmallMarginBottom">
-                    <!-- ✅ src intentionally empty — set programmatically in onInit() -->
                     <Image id="v3_imgCompanyLogo" width="120px"/>
                     <VBox id="v3_vboxCompanyName" justifyContent="Center">
                         <Title id="v3_txtCompanyName" text="Vision Electronics Pvt Ltd" level="H2"/>
@@ -76,40 +75,88 @@
 
                 </l:Grid>
 
-                <!-- ITEMS TABLE -->
+                <!-- ITEMS TABLE
+                     Columns: Item No | Material | Qty | Unit Price | Delivery Date
+                              | Tax% | IGST% | CGST% | SGST% | Tax Amt | Amount
+                     IGST / CGST / SGST show the rate (%) directly from backend fields.
+                -->
                 <Table id="v3_tblPOItems" inset="false" class="sapUiSmallMarginTop"
                        items="{/Z_PURCHASE_ORDER}">
                     <columns>
-                        <Column id="v3_colItemNo" width="10%">
+                        <Column id="v3_colItemNo" width="7%">
                             <Text id="v3_lblColItemNo" text="Item No"/>
                         </Column>
-                        <Column id="v3_colMaterialName" width="20%">
+                        <Column id="v3_colMaterialName" width="13%">
                             <Text id="v3_lblColMaterialName" text="Material"/>
                         </Column>
-                        <Column id="v3_colQuantity" width="12%" hAlign="Center">
+                        <Column id="v3_colQuantity" width="8%" hAlign="Center">
                             <Text id="v3_lblColQuantity" text="Quantity"/>
                         </Column>
-                        <Column id="v3_colUnitPrice" width="12%" hAlign="End">
+                        <Column id="v3_colUnitPrice" width="9%" hAlign="End">
                             <Text id="v3_lblColUnitPrice" text="Unit Price"/>
                         </Column>
-                        <Column id="v3_colDeliveryDate" width="18%">
+                        <Column id="v3_colDeliveryDate" width="11%">
                             <Text id="v3_lblColDeliveryDate" text="Delivery Date"/>
                         </Column>
-                        <Column id="v3_colAmount" width="13%" hAlign="End">
+
+                        <Column id="v3_colIGST" width="8%" hAlign="End">
+                            <Text id="v3_lblColIGST" text="IGST%"/>
+                        </Column>
+                        <Column id="v3_colCGST" width="8%" hAlign="End">
+                            <Text id="v3_lblColCGST" text="CGST%"/>
+                        </Column>
+                        <Column id="v3_colSGST" width="8%" hAlign="End">
+                            <Text id="v3_lblColSGST" text="SGST%"/>
+                        </Column>
+                                                <Column id="v3_colTaxPercent" width="8%" hAlign="End">
+                            <Text id="v3_lblColTaxPercent" text="Tax%"/>
+                        </Column>
+                        <Column id="v3_colTaxAmount" width="10%" hAlign="End">
+                            <Text id="v3_lblColTaxAmount" text="Tax Amt"/>
+                        </Column>
+                        <Column id="v3_colAmount" width="10%" hAlign="End">
                             <Text id="v3_lblColAmount" text="Amount"/>
                         </Column>
                     </columns>
                     <items>
                         <ColumnListItem id="v3_rowPOItem">
                             <cells>
-                                <Text id="v3_txtItemPOItem"         text="{POItem}"/>
-                                <Text id="v3_txtItemMaterial"       text="{Material}"/>
-                                <Text id="v3_txtItemOrderedQty"     text="{OrderedQuantity}"/>
+                                <!-- Item No -->
+                                <Text id="v3_txtItemPOItem"
+                                      text="{POItem}"/>
+                                <!-- Material -->
+                                <Text id="v3_txtItemMaterial"
+                                      text="{Material}"/>
+                                <!-- Quantity -->
+                                <Text id="v3_txtItemOrderedQty"
+                                      text="{OrderedQuantity}"/>
+                                <!-- Unit Price -->
                                 <Text id="v3_txtItemUnitPrice"
                                       text="{= %{POOrderValue} > 0 &amp;&amp; %{OrderedQuantity} > 0
                                              ? (Math.round(%{POOrderValue} / %{OrderedQuantity} * 100) / 100).toFixed(2)
                                              : '0.00' }"/>
-                                <Text id="v3_txtItemDeliveryDate"   text="{DeliveryDate}"/>
+                                <!-- Delivery Date -->
+                                <Text id="v3_txtItemDeliveryDate"
+                                      text="{DeliveryDate}"/>
+                                
+                                <!-- IGST% — direct from backend field -->
+                                <Text id="v3_txtItemIGST"
+                                      text="{= %{IGST} ? parseFloat(%{IGST}).toFixed(2) + '%' : '0.00%' }"/>
+                                <!-- CGST% — direct from backend field -->
+                                <Text id="v3_txtItemCGST"
+                                      text="{= %{CGST} ? parseFloat(%{CGST}).toFixed(2) + '%' : '0.00%' }"/>
+                                <!-- SGST% — direct from backend field -->
+                                <Text id="v3_txtItemSGST"
+                                      text="{= %{SGST} ? parseFloat(%{SGST}).toFixed(2) + '%' : '0.00%' }"/>
+                                <!-- Tax% (total) -->
+                                <Text id="v3_txtItemTaxPercent"
+                                      text="{= %{TaxPercent} ? parseFloat(%{TaxPercent}).toFixed(2) + '%' : '0.00%' }"/>
+                                <!-- Tax Amt = POOrderValue * TaxPercent / 100 -->
+                                <Text id="v3_txtItemTaxAmount"
+                                      text="{= %{POOrderValue} > 0 &amp;&amp; %{TaxPercent} > 0
+                                             ? (Math.round(%{POOrderValue} * %{TaxPercent}) / 100).toFixed(2)
+                                             : '0.00' }"/>
+                                <!-- Net Amount -->
                                 <Text id="v3_txtItemAmount"
                                       text="{= %{POOrderValue} ? parseFloat(%{POOrderValue}).toFixed(2) : '0.00' }"/>
                             </cells>
@@ -117,56 +164,25 @@
                     </items>
                 </Table>
 
-                <!-- AMOUNT SUMMARY -->
+                <!-- AMOUNT SUMMARY — 3 rows -->
                 <HBox id="v3_hboxSummaryWrapper" justifyContent="End" class="sapUiSmallMarginTop">
                     <VBox id="v3_vboxSummary" width="300px">
 
-                        <!-- Amount -->
                         <HBox id="v3_hboxSummaryAmount" justifyContent="SpaceBetween"
                               class="sapUiTinyMarginBottom">
-                            <Label id="v3_lblSummaryAmount" text="Amount:"       design="Bold" width="150px"/>
+                            <Label id="v3_lblSummaryAmount" text="Amount:"       design="Bold" width="160px"/>
                             <Text  id="v3_valSummaryAmount" text=""/>
                         </HBox>
 
-                        <!-- V1: IGST row -->
-                        <HBox id="v3_hboxSummaryIGST" justifyContent="SpaceBetween"
-                              class="sapUiTinyMarginBottom" visible="false">
-                            <Label id="v3_lblSummaryIGST" text="IGST (18%):" design="Bold" width="150px"/>
-                            <Text  id="v3_valSummaryIGST" text=""/>
-                        </HBox>
-
-                        <!-- V5: CGST row -->
-                        <HBox id="v3_hboxSummaryCGST" justifyContent="SpaceBetween"
-                              class="sapUiTinyMarginBottom" visible="false">
-                            <Label id="v3_lblSummaryCGST" text="CGST (9%):" design="Bold" width="150px"/>
-                            <Text  id="v3_valSummaryCGST" text=""/>
-                        </HBox>
-
-                        <!-- V5: SGST row -->
-                        <HBox id="v3_hboxSummarySGST" justifyContent="SpaceBetween"
-                              class="sapUiTinyMarginBottom" visible="false">
-                            <Label id="v3_lblSummarySGST" text="SGST (9%):" design="Bold" width="150px"/>
-                            <Text  id="v3_valSummarySGST" text=""/>
-                        </HBox>
-
-                        <!-- Default: Tax% fallback row -->
-                        <HBox id="v3_hboxSummaryTax" justifyContent="SpaceBetween"
-                              class="sapUiTinyMarginBottom" visible="true">
-                            <Label id="v3_lblSummaryTax" text="Tax%:" design="Bold" width="150px"/>
-                            <Text  id="v3_valSummaryTax" text=""/>
-                        </HBox>
-
-                        <!-- Tax Amount -->
                         <HBox id="v3_hboxSummaryTaxAmt" justifyContent="SpaceBetween"
                               class="sapUiTinyMarginBottom">
-                            <Label id="v3_lblSummaryTaxAmt" text="Tax Amount:"   design="Bold" width="150px"/>
+                            <Label id="v3_lblSummaryTaxAmt" text="Tax Amount:"   design="Bold" width="160px"/>
                             <Text  id="v3_valSummaryTaxAmt" text=""/>
                         </HBox>
 
-                        <!-- Total Amount -->
                         <HBox id="v3_hboxSummaryTotal" justifyContent="SpaceBetween"
                               class="sapUiTinyMarginBottom">
-                            <Label id="v3_lblSummaryTotal"  text="Total Amount:" design="Bold" width="150px"/>
+                            <Label id="v3_lblSummaryTotal"  text="Total Amount:" design="Bold" width="160px"/>
                             <Text  id="v3_valSummaryTotal"  text=""/>
                         </HBox>
 

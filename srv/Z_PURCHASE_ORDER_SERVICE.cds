@@ -1,8 +1,18 @@
 using Z_PURCHASE_ORDER_SERVICE from './external/Z_PURCHASE_ORDER_SERVICE.cds';
 
 service Z_PURCHASE_ORDER_SERVICE_MAIN {
-    @readonly
-    entity Z_PURCHASE_ORDER as
+
+ @restrict: [
+                    {
+                        grant: '*',
+                        to   : ['PurchaseorderAdmin']
+                    },
+                    {
+                        grant: 'READ',
+                        to   : ['Purchaseorderviewer']
+                    }
+                ]
+        entity Z_PURCHASE_ORDER as
         projection on Z_PURCHASE_ORDER_SERVICE.Z_PURCHASE_ORDER {
             key PONumber,
             key POItem,
